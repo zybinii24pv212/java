@@ -19,9 +19,8 @@ public class User {
     private List<PaymentAccount> paymentAccounts;
     private int creditRating;
 
-    public User(Long id, String fullName, LocalDate birthDate, String jobPlace,
+    public User(String fullName, LocalDate birthDate, String jobPlace,
                 List<Bank> banks, List<CreditAccount> creditAccounts, List<PaymentAccount> paymentAccounts) {
-        this.id = id;
         this.fullName = fullName;
         this.birthDate = birthDate;
         this.jobPlace = jobPlace;

@@ -16,11 +16,11 @@ public class BankOffice {
     private boolean canAcceptCash;
     private double moneyInOffice;
     private double rentCost;
+    private Bank bank;
 
-    public BankOffice(Long id, String name, String address, boolean isWorking, boolean canPlaceAtm,
+    public BankOffice(String name, String address, boolean isWorking, boolean canPlaceAtm,
                       boolean canProvideLoans, boolean canDispenseCash, boolean canAcceptCash,
-                      double moneyInOffice, double rentCost) {
-        this.id = id;
+                      double moneyInOffice, double rentCost, Bank bank) {
         this.name = name;
         this.address = address;
         this.isWorking = isWorking;
@@ -30,6 +30,7 @@ public class BankOffice {
         this.canAcceptCash = canAcceptCash;
         this.moneyInOffice = moneyInOffice;
         this.rentCost = rentCost;
+        this.bank = bank;
     }
 }
 

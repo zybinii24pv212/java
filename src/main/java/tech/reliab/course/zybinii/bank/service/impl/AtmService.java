@@ -8,13 +8,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AtmService implements AtmServiceInterface {
+    private final BankService bankService;
     private final List<BankAtm> atmStorage = new ArrayList<>();
     private Long idCounter = 1L;
+
+    public AtmService(BankService bankService) {
+        this.bankService = bankService;
+    }
 
     @Override
     public BankAtm create(BankAtm bankAtm) {
         bankAtm.setId(idCounter++);
         atmStorage.add(bankAtm);
+        bankService.addAtm(bankAtm.getBank().getId());
         return bankAtm;
     }
 
@@ -25,7 +31,7 @@ public class AtmService implements AtmServiceInterface {
                 return atm;
             }
         }
-        return null;  // Если банкомат с таким ID не найден
+        return null;
     }
 
     @Override

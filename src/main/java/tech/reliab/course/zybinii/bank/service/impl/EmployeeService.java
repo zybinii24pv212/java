@@ -7,13 +7,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeService implements EmployeeServiceInterface {
+    private final BankService bankService;
+
     private final List<Employee> employeeStorage = new ArrayList<>();
     private Long idCounter = 1L;
+
+    public EmployeeService(BankService bankService) {
+        this.bankService = bankService;
+    }
 
     @Override
     public Employee create(Employee employee) {
         employee.setId(idCounter++);
         employeeStorage.add(employee);
+        bankService.addEmployee(employee.getBank().getId());
         return employee;
     }
 

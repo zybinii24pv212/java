@@ -13,5 +13,13 @@ public interface BankServiceInterface {
 
     boolean delete(Long id);
 
+    void addOffice(Long id);
+
+    void addAtm(Long id);
+
+    void addEmployee(Long id);
+
+    void addClient(Long id);
+
     List<Bank> getAllBanks();
 }

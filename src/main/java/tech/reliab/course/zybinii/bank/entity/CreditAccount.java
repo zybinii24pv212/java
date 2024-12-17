@@ -1,12 +1,10 @@
 package tech.reliab.course.zybinii.bank.entity;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Data
-@NoArgsConstructor
 public class CreditAccount {
     private Long id;
     private Long userId;
@@ -20,10 +18,9 @@ public class CreditAccount {
     private Long issuedByEmployeeId;
     private PaymentAccount paymentAccount;
 
-    public CreditAccount(Long id, Long userId, String bankName, LocalDate startDate, int creditMonths,
+    public CreditAccount(Long userId, String bankName, LocalDate startDate, int creditMonths,
                          double creditAmount, double interestRate, Long issuedByEmployeeId, PaymentAccount paymentAccount,
                          Bank bank) {
-        this.id = id;
         this.userId = userId;
         this.bankName = bankName;
         this.startDate = startDate;

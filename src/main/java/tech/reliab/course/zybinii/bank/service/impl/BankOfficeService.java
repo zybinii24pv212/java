@@ -7,13 +7,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BankOfficeService implements BankOfficeServiceInterface {
-    private final List<BankOffice> officeStorage = new ArrayList<BankOffice>();
+    private final BankService bankService;
+    private final List<BankOffice> officeStorage = new ArrayList<>();
     private Long idCounter = 1L;
+
+    public BankOfficeService(BankService bankService) {
+        this.bankService = bankService;
+    }
 
     @Override
     public BankOffice create(BankOffice bankOffice) {
         bankOffice.setId(idCounter++);
         officeStorage.add(bankOffice);
+        bankService.addOffice(bankOffice.getBank().getId());
         return bankOffice;
     }
 
@@ -35,7 +41,7 @@ public class BankOfficeService implements BankOfficeServiceInterface {
                 return bankOffice;
             }
         }
-        return null;  // Если офис с таким ID не найден
+        return null;
     }
 
     @Override
@@ -47,5 +53,6 @@ public class BankOfficeService implements BankOfficeServiceInterface {
     public List<BankOffice> getAllOffices() {
         return new ArrayList<>(officeStorage);
     }
+
 
 }

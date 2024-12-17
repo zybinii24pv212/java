@@ -18,10 +18,9 @@ public class BankAtm {
     private double moneyInAtm;
     private double maintenanceCost;
 
-    public BankAtm(Long id, String name, Bank bank, BankOffice bankOffice,
+    public BankAtm(String name, Bank bank, BankOffice bankOffice,
                    Employee serviceEmployee, boolean canDispenseCash, boolean canAcceptCash,
                    double moneyInAtm, double maintenanceCost) {
-        this.id = id;
         this.name = name;
         this.bank = bank;
         this.bankOffice = bankOffice;

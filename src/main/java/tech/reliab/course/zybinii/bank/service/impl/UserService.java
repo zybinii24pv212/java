@@ -7,13 +7,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserService implements UserServiceInterface {
+    private final BankService bankService;
     private final List<User> userStorage = new ArrayList<>();
     private Long idCounter = 1L;
+
+    public UserService(BankService bankService) {
+        this.bankService = bankService;
+    }
 
     @Override
     public User create(User user) {
         user.setId(idCounter++);
         userStorage.add(user);
+        bankService.addClient(user.getId());
         return user;
     }
 
@@ -24,7 +30,7 @@ public class UserService implements UserServiceInterface {
                 return user;
             }
         }
-        return null;  // Если пользователь с таким ID не найден
+        return null;
     }
 
     @Override
@@ -35,7 +41,7 @@ public class UserService implements UserServiceInterface {
                 return user;
             }
         }
-        return null;  // Если пользователь с таким ID не найден
+        return null;
     }
 
     @Override
