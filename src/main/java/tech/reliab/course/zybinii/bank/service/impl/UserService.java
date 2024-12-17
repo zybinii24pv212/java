@@ -1,5 +1,8 @@
 package tech.reliab.course.zybinii.bank.service.impl;
 
+import tech.reliab.course.zybinii.bank.entity.Bank;
+import tech.reliab.course.zybinii.bank.entity.CreditAccount;
+import tech.reliab.course.zybinii.bank.entity.PaymentAccount;
 import tech.reliab.course.zybinii.bank.entity.User;
 import tech.reliab.course.zybinii.bank.service.UserServiceInterface;
 
@@ -8,18 +11,23 @@ import java.util.List;
 
 public class UserService implements UserServiceInterface {
     private final BankService bankService;
+    private final PaymentAccountService paymentAccountService;
     private final List<User> userStorage = new ArrayList<>();
     private Long idCounter = 1L;
 
-    public UserService(BankService bankService) {
+
+    public UserService(BankService bankService, PaymentAccountService paymentAccountService) {
         this.bankService = bankService;
+        this.paymentAccountService = paymentAccountService;
     }
 
     @Override
     public User create(User user) {
         user.setId(idCounter++);
         userStorage.add(user);
-        bankService.addClient(user.getId());
+        if (user.getBanks() != null) {
+            bankService.addClient(user.getId());
+        }
         return user;
     }
 
@@ -54,4 +62,18 @@ public class UserService implements UserServiceInterface {
         return new ArrayList<>(userStorage);
     }
 
+    public PaymentAccount getOrCreatePaymentAccount(Long userId, Long bankId) {
+        Bank bank = bankService.read(bankId);
+
+        for (PaymentAccount paymentAccount : paymentAccountService.getAllPaymentAccounts()) {
+            if (paymentAccount.getUserId().equals(userId) && bank.getName().equals(paymentAccount.getBankName())) {
+                return paymentAccount;
+            }
+        }
+        return new PaymentAccount(
+                userId,
+                bank.getName(),
+                0
+        );
+    }
 }
